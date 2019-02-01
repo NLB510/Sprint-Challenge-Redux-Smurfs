@@ -1,3 +1,4 @@
+import axios from "axios"
 /* 
   Action Types Go Here!
   Be sure to export each action type so you can pull it into your reducer
@@ -18,8 +19,11 @@ export const FETCH_FAILURE = 'FETCH_FAILURE'
    D - deleteSmurf
 */
 
+const baseUrl = "http://localhost:3333";
 
 export const fetchData = () => dispatch => {
   dispatch({type: FETCH_START})
-  console.log('action', FETCH_START)
+  axios.get(`${baseUrl}/smurfs`)
+  .then(res => dispatch({type: FETCH_SUCCESS, payload: res.data}))
+  .catch(err => dispatch({type: FETCH_FAILURE, payload: err}))
 }

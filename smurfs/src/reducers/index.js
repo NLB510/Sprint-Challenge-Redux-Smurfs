@@ -1,4 +1,4 @@
-import { FETCH_START } from "../actions";
+import { FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "../actions";
 
 /*
   Be sure to import in all of the action types from `../actions`
@@ -44,6 +44,26 @@ const reducer =  (state = initialState, action) => {
         ...state.status,
         isFetching: true
       }
+    }
+
+    case FETCH_SUCCESS: 
+    console.log(action.payload)
+    return {
+      ...state,
+      smurfs: action.payload,
+      status: {
+        ...state.status,
+        isFetching: false
+      }
+    }
+    case FETCH_FAILURE: 
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        isFetching: true
+      },
+      error: action.payload
     }
     default: 
     return state

@@ -1,18 +1,16 @@
 import React from "react"
 
-import {connect} from "react-redux"
+import Smurf from "./Smurf"
 
-import {fetchData} from "../../actions"
 
 const SmurfList = props => {
-  
-  
-  
-  
-  
+  const smurfList = props.smurfs.map((smurf,index) => {
+    return <Smurf key={index} smurf={smurf} />
+  })
+
     return (
       <div>
-        <h1>I'm the SmurfList</h1>
+        {smurfList}
       </div>
     )
   }
