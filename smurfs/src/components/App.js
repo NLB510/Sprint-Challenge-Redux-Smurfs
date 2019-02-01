@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { fetchData } from "../actions";
 
 import SmurfList from "./Smurfs/SmurfList";
+import SmurfForm from "./SmurfForm/SmurfForm"
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class App extends Component {
     return (
       <div className="App">
       <h1>Smurf List</h1>
+        <SmurfForm />
         <SmurfList smurfs={this.props.smurfs}/>
       </div>
     );

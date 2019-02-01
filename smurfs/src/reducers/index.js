@@ -1,4 +1,11 @@
-import { FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "../actions";
+import {
+  FETCH_START,
+  FETCH_SUCCESS,
+  FETCH_FAILURE,
+  ADD_START,
+  ADD_SUCCESS,
+  ADD_FAILURE
+} from "../actions";
 
 /*
   Be sure to import in all of the action types from `../actions`
@@ -25,7 +32,7 @@ const initialState = {
     isDeleting: false,
     error: null
   }
-}
+};
 
 /*
   You'll only need one smurf reducer for this project.
@@ -35,42 +42,67 @@ const initialState = {
   Components can then read your store as, `state` and not `state.fooReducer`.
 */
 
-const reducer =  (state = initialState, action) => {
-  switch(action.type) {
-    case FETCH_START: 
-    return {
-      ...state,
-      status: {
-        ...state.status,
-        isFetching: true
-      }
-    }
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_START:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isFetching: true
+        }
+      };
 
-    case FETCH_SUCCESS: 
-    console.log(action.payload)
-    return {
-      ...state,
-      smurfs: action.payload,
-      status: {
-        ...state.status,
-        isFetching: false
+    case FETCH_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        smurfs: action.payload,
+        status: {
+          ...state.status,
+          isFetching: false
+        },
+        error: null
+      };
+    case FETCH_FAILURE:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isFetching: true
+        },
+        error: action.payload
+      };
+    case ADD_START:
+      return {
+        ...state,
+        state: {
+          ...state.status,
+          isAdding: true
+        }
+      };
+    case ADD_SUCCESS:
+      return {
+        ...state,
+        smurfs: action.payload,
+        status: {
+          ...state.status,
+          isAdding: false
+        },
+        error: null
+      };
+      case ADD_FAILURE: 
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isAdding: true
+        },
+        error: action.payload
       }
-    }
-    case FETCH_FAILURE: 
-    return {
-      ...state,
-      status: {
-        ...state.status,
-        isFetching: true
-      },
-      error: action.payload
-    }
-    default: 
-    return state
+    default:
+      return state;
   }
-}
+};
 
-
-export default reducer
-
-
+export default reducer;
