@@ -4,7 +4,10 @@ import {
   FETCH_FAILURE,
   ADD_START,
   ADD_SUCCESS,
-  ADD_FAILURE
+  ADD_FAILURE,
+  DELETE_START,
+  DELETE_SUCCESS,
+  DELETE_FAILURE
 } from "../actions";
 
 /*
@@ -91,7 +94,7 @@ const reducer = (state = initialState, action) => {
         },
         error: null
       };
-      case ADD_FAILURE: 
+    case ADD_FAILURE:
       return {
         ...state,
         status: {
@@ -99,7 +102,35 @@ const reducer = (state = initialState, action) => {
           isAdding: true
         },
         error: action.payload
-      }
+      };
+    case DELETE_START:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isDeleting: true
+        }
+      };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isDeleting: false
+        },
+        smurfs: action.payload,
+        error: null
+      };
+
+    case DELETE_FAILURE:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isDeleting: true
+        },
+        error: action.payload
+      };
     default:
       return state;
   }
