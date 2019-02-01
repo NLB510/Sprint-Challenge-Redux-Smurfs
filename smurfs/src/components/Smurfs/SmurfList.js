@@ -5,15 +5,22 @@ import Smurf from "./Smurf";
 import { connect } from "react-redux";
 import { deleteSmurf } from "../../actions";
 
-const SmurfList = props => {
+import { List } from "@material-ui/core";
 
-const deleteSmurfItem = (e,smurfId) => {
-  e.preventDefault();
-  props.deleteSmurf(smurfId);
-}
+const SmurfList = props => {
+  const deleteSmurfItem = (e, smurfId) => {
+    e.preventDefault();
+    props.deleteSmurf(smurfId);
+  };
 
   const smurfList = props.smurfs.map((smurf, index) => {
-    return <Smurf key={index} smurf={smurf} deleteSmurfItem={deleteSmurfItem} />;
+    return (
+      <React.Fragment key={index}>
+        <List>
+          <Smurf smurf={smurf} deleteSmurfItem={deleteSmurfItem} />
+        </List>
+      </React.Fragment>
+    );
   });
 
   return <div>{smurfList}</div>;

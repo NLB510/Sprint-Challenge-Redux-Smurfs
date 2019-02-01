@@ -12,36 +12,52 @@ import { connect } from "react-redux";
 import { fetchData } from "../actions";
 
 import SmurfList from "./Smurfs/SmurfList";
-import SmurfForm from "./SmurfForm/SmurfForm"
+import SmurfForm from "./SmurfForm/SmurfForm";
+
+import { Paper, Typography, TextField, Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme =>
+  console.log(theme) || {
+    root: {
+      margin: "20px auto",
+      padding: 20,
+
+      width: "50%"
+    }
+  };
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchData();
-    
   }
 
   render() {
     console.log(this.props);
     return (
-      <div className="App">
-      <h1>Smurf List</h1>
-        <SmurfForm />
-        <SmurfList smurfs={this.props.smurfs}/>
-      </div>
+      <React.Fragment>
+        <Paper className={this.props.classes.root}>
+          <Typography variant="display1" align="center" gutterBottom>
+            SMURF LIST
+          </Typography>
+          <SmurfForm />
+          <SmurfList smurfs={this.props.smurfs} />
+        </Paper>
+      </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => {
-  
-
   return {
     smurfs: state.smurfs,
     status: state.status
   };
 };
 
+const appWithStyles = withStyles(styles)(App);
+
 export default connect(
   mapStateToProps,
   { fetchData }
-)(App);
+)(appWithStyles);
